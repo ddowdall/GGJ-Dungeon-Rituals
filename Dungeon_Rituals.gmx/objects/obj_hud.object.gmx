@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>audio_play_sound(sndBackgroundMusic1,0,1)
+            <string>//audio_play_sound(sndBackgroundMusic1,0,1)
+
 </string>
           </argument>
         </arguments>
@@ -74,10 +75,10 @@ status_bar(112,32,192,32, obj_player.vit , obj_player.maxvit,c_red,c_lime)
             <kind>1</kind>
             <string>
 with obj_player
-if collision_circle(x, y + 74, 74, obj_wall, true, true)
+if collision_line(x, y, x , y + 114, obj_wall, true, true)
     {
         //draw_circle(x, y, 25, false);
-        draw_sprite_ext(spr_player,-1,x,y-z,m,1,0,c_aqua,.3)
+        draw_sprite_ext(sprite_index,-1,x,y-z,m,1,0,c_aqua,.5)
     }
 if obj_player.talking = -1
 {
@@ -97,7 +98,7 @@ with obj_treasure_chest
         infobox_centered("Open Chest" , x , y - 128)
         if image_index = 1
         infobox_centered("Close Chest" , x , y - 128)
-        if global.jpressed[0,3]
+        if global.jpressed[0,3] || keyboard_check_pressed(ord("C")) || keyboard_check_pressed(ord("E"))
             {
             audio_play_sound(snd_open_chest,0,0)
             image_index = !image_index
@@ -110,11 +111,39 @@ with obj_priest
     if point_distance(x,y,obj_player.x,obj_player.y) &lt; 128
         {
         infobox_centered("Talk to Priest" , x , y - 156)
-        if global.jpressed[0,3]
+        if global.jpressed[0,3] || keyboard_check_pressed(ord("C")) || keyboard_check_pressed(ord("E"))
             {
-            audio_play_sound(snd_priest_it_is_up_to_you,0,0)
+            //if dialogue_pos = 0
+            //audio_play_sound(snd_priest_it_is_up_to_you,0,0)
             image_index = !image_index
             obj_player.talking = id
+            if dialogue_pos = 3
+            audio_play_sound(snd_priest_defeated,0,0)
+            }
+        }
+    }
+
+
+with obj_door_to_next_room
+    {
+    if point_distance(x - 64,y,obj_player.x,obj_player.y) &lt; 128
+        {
+        infobox_centered("Enter Door" , x - 64 , y - 156)
+        if global.jpressed[0,3] || keyboard_check_pressed(ord("C")) || keyboard_check_pressed(ord("E"))
+            {
+            room_goto_next()
+            }
+        }
+    }
+
+with obj_door_back
+    {
+    if point_distance(x + 64,y,obj_player.x,obj_player.y) &lt; 128
+        {
+        infobox_centered("Enter Door" , x + 64 , y - 156)
+        if global.jpressed[0,3] || keyboard_check_pressed(ord("C")) || keyboard_check_pressed(ord("E"))
+            {
+            room_goto_previous()
             }
         }
     }
@@ -122,10 +151,18 @@ with obj_priest
 with obj_AI
 if !dead
 if collision_circle(x, y + 74, 74, obj_wall, true, true)
-    {
-        
-        draw_sprite_ext(spr_AI,-1,x,y-z,m,1,0,c_aqua,.3)
-    }
+{
+    draw_sprite_ext(spr_Spider1,-1,x,y-z,m,1,0,c_red,.5)
+}
+
+
+with obj_rangeAI
+if !dead
+if collision_circle(x, y + 74, 74, obj_wall, true, true)
+{
+    
+    draw_sprite_ext(spr_Skeleton,-1,x,y-z,m,1,0,c_red,.5)
+}
 }
 if obj_player.talking &gt; -1
     {
@@ -134,6 +171,29 @@ if obj_player.talking &gt; -1
     }
     
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="82">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>game_restart()
 </string>
           </argument>
         </arguments>

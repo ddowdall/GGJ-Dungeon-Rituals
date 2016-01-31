@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_wall</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -33,6 +33,7 @@ response = -1
 
 dialogue_draw_pos = 0
 reply_selected = 0
+dialogue_text = ""
 </string>
           </argument>
         </arguments>
@@ -55,44 +56,93 @@ reply_selected = 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
+            <string>if obj_player.talking = id
+{
 if dialogue_pos = 0
     {
-    dialogue_text = 'What is it my child?'
-    replies = 1
+    dialogue_text = '...'
+    replies = 2
     reply[0] = 'Can you help me?'
     if response = 0
         {
+        audio_play_sound(snd_priest_it_is_up_to_you,0,0)
         dialogue_pos = 1
         response = -1
         }
+    reply[1] = 'Bye'
+    if response = 1
+        {
+        dialogue_pos = 0
+        response = -1
+        obj_player.talking = -1
+        }
     }
-else
+
 if dialogue_pos = 1
     {
-    dialogue_text = 'The power is within you'
+    dialogue_text = 'It is up to you'
     replies = 1
-    reply[0] = 'But I'
+    reply[0] = 'But I ...'
     if response = 0
         {
+        audio_play_sound(snd_priest_takesword,0,0)
         dialogue_pos = 2
         response = -1
         }
     }
-else
+
 if dialogue_pos = 2
     {
     dialogue_text = 'Here, take this sword for protection'
     replies = 1
     reply[0] = 'Ok bye'
     if response = 0
-        {       
+        {
+        audio_play_sound(snd_priest_it_is_up_to_you,0,0)
+        dialogue_pos = 3       
         obj_player.talking = -1
         response = -1
-        dialogue_pos = 0
         }
     }
 
+if dialogue_pos = 3
+    {
+    dialogue_text = 'Have you defeated the demon yet?'
+    replies = 1
+    reply[0] = 'No'
+    if response = 0
+        { 
+        audio_play_sound(snd_priest_gettoit,0,0)
+        dialogue_pos = 4
+        response = -1
+        }
+    }
+
+if dialogue_pos = 4
+    {
+    dialogue_text = 'Well what are you waiting for? Get to it!'
+    replies = 1
+    reply[0] = 'Ok'
+    if response = 0
+        {       
+        obj_player.talking = -1
+        response = -1
+        dialogue_pos = 3
+        }
+    }
+
+    
+if global.jdown_pressed[0]
+    {
+    if reply_selected &lt; replies - 1
+    reply_selected++
+    }
+if global.jup_pressed[0]
+    {
+    if reply_selected &gt; 0
+    reply_selected--
+    }
+}
 </string>
           </argument>
         </arguments>

@@ -36,6 +36,15 @@ ok = 0
 if joystick_ypos(1) < .2
 if collision_circle(x,y-32,10,obj_wall,1,1)
 ok = 0
+
+dir1 = point_direction(0,0,joystick_xpos(1),joystick_ypos(1))
+x1 = x + lengthdir_x(32,dir1)
+y1 = y + lengthdir_y(32,dir1)
+
+ok = 1
+if collision_circle(x1,y1,10,obj_wall,1,1)
+ok = 0
+
 if ok
 if abs(joystick_ypos(1)) > .2
 {
@@ -51,7 +60,7 @@ if global.jpressed[0,1] || keyboard_check_pressed(vk_space) if z = 0
 
 scr_gravity()
     
-image_speed = moving / 5
+
 if moving 
     {
     //draw_getpixel
@@ -67,7 +76,7 @@ if moving
     }
 else
     {
-    image_index = 0
+    //image_index = 0
     }
 /*
 if collision_circle(x,y-32,10,obj_wall,1,1)

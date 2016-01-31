@@ -14,11 +14,11 @@ This game was made during the 2016 Global Game Jam.
 
 Team Members
 ============
-David Dowdall
-Tomas Salinas
-Saajan Bariana
-Arthur Baney
-Jeff Jose
+- David Dowdall
+- Tomas Salinas
+- Saajan Bariana
+- Arthur Baney
+- Jeff Jose
 
 Software
 ========

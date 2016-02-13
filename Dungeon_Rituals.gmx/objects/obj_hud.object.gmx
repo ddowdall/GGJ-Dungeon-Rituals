@@ -31,6 +31,30 @@
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>117</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_snap</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>0</kind>
+            <string>16</string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string>16</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="8" enumb="64">
       <action>
@@ -50,7 +74,12 @@
           <argument>
             <kind>1</kind>
             <string>if obj_player.talking = -1
+{
 status_bar(112,32,192,32, obj_player.vit , obj_player.maxvit,c_red,c_lime)
+
+status_bar(112,32 + 48,192,32, obj_player.mana , obj_player.maxmana,c_dkgray,c_blue)
+
+}
 </string>
           </argument>
         </arguments>
@@ -90,6 +119,40 @@ with obj_help
         }
     }
 
+with obj_health_potion
+    {
+    if point_distance(x,y,obj_player.x,obj_player.y) &lt; 128
+        {
+        infobox_centered("Pickup Health Potion" , x , y - 128)
+        if global.jpressed[0,3] || keyboard_check_pressed(ord("C")) || keyboard_check_pressed(ord("E"))
+            {
+            instance_destroy()
+            obj_player.vit += 10 + irandom(5)
+            if obj_player.vit &gt; obj_player.maxvit
+            obj_player.vit = obj_player.maxvit
+            
+            audio_play_sound(snd_potion_consume,0,0)
+            }
+        }
+    }
+
+with obj_mana_potion
+    {
+    if point_distance(x,y,obj_player.x,obj_player.y) &lt; 128
+        {
+        infobox_centered("Pickup Mana Potion" , x , y - 128)
+        if global.jpressed[0,3] || keyboard_check_pressed(ord("C")) || keyboard_check_pressed(ord("E"))
+            {
+            instance_destroy()
+            obj_player.mana += 10 + irandom(5)
+            if obj_player.mana &gt; obj_player.maxmana
+            obj_player.mana = obj_player.maxmana
+            
+            audio_play_sound(snd_potion_consume,0,0)
+            }
+        }
+    }
+
 with obj_treasure_chest
     {
     if point_distance(x,y,obj_player.x,obj_player.y) &lt; 128
@@ -102,6 +165,13 @@ with obj_treasure_chest
             {
             audio_play_sound(snd_open_chest,0,0)
             image_index = !image_index
+            
+            if !opened
+                {
+                instance_create(x + irandom(128) - 64,y + 96,choose(obj_health_potion , obj_mana_potion))
+                }
+            
+            opened = 1
             }
         }
     }
@@ -122,6 +192,46 @@ with obj_priest
             }
         }
     }
+    
+
+with obj_door_to_second_room
+    {
+    if point_distance(x + 64,y,obj_player.x,obj_player.y) &lt; 128
+        {
+        infobox_centered("Enter Door" , x + 64 , y - 156)
+        if global.jpressed[0,3] || keyboard_check_pressed(ord("C")) || keyboard_check_pressed(ord("E"))
+            {
+               
+               room_goto_next()
+                
+            }
+        }
+    }
+    
+
+    
+with obj_door_to_third_room
+    {
+    if point_distance(x - 64,y,obj_player.x,obj_player.y) &lt; 128
+        {
+             if(global.hasbook)
+                {
+                    infobox_centered("Enter Door" , x - 64 , y - 156)
+                    if global.jpressed[0,3] || keyboard_check_pressed(ord("C")) || keyboard_check_pressed(ord("E"))
+                    {
+                           
+                        room_goto_next()
+                            
+                            
+                    }
+                }   
+                else
+                {
+                    infobox_centered("Must Obtain Summoner Book!" , x - 64 , y - 156)
+                }
+        }
+    }
+
 
 
 with obj_door_to_next_room

@@ -21,6 +21,7 @@
     <sound>sound\snd_walk_m1</sound>
     <sound>sound\snd_walk</sound>
     <sound>sound\snd_death_splat</sound>
+    <sound>sound\snd_SatanHit</sound>
     <sound>sound\snd_walk_m2</sound>
     <sound>sound\snd_spider_squeek</sound>
     <sound>sound\snd_jumping</sound>
@@ -38,16 +39,21 @@
     <sound>sound\snd_spider_hiss</sound>
     <sound>sound\snd_priest_takesword</sound>
     <sound>sound\snd_Skeleton_Walking</sound>
+    <sound>sound\snd_projectile_splatter</sound>
     <sound>sound\snd_skeleton2</sound>
     <sound>sound\snd_skeleton</sound>
     <sound>sound\snd_Skeleton_Walking2</sound>
     <sound>sound\snd_Skeleton_Walking3</sound>
     <sound>sound\snd_potion_consume</sound>
+    <sound>sound\snd_vile_ping</sound>
+    <sound>sound\snd_shoot</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_wall</sprite>
+    <sprite>sprites\spr_old_wall</sprite>
     <sprite>sprites\spr_door</sprite>
     <sprite>sprites\spr_door_back</sprite>
+    <sprite>sprites\spr_book</sprite>
     <sprite>sprites\sprite2</sprite>
     <sprite>sprites\sprite0</sprite>
     <sprite>sprites\spr_sword</sprite>
@@ -80,15 +86,20 @@
     <sprite>sprites\spr_priest</sprite>
     <sprite>sprites\spr_bow</sprite>
     <sprite>sprites\spr_chat_button</sprite>
+    <sprite>sprites\spr_satan_standing</sprite>
     <sprite>sprites\spr_torch</sprite>
     <sprite>sprites\spr_satan</sprite>
     <sprite>sprites\spr_satan_running</sprite>
     <sprite>sprites\spr_sprite_treasure_chest</sprite>
+    <sprite>sprites\spr_flame_ball</sprite>
+    <sprite>sprites\spr_iceball</sprite>
     <sprite>sprites\spr_potion_health</sprite>
     <sprite>sprites\spr_CobbledWall_Doorway</sprite>
+    <sprite>sprites\spr_mana_potion</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
+    <background>background\background10</background>
     <background>background\background2</background>
     <background>background\back_sidewalk</background>
     <background>background\background4</background>
@@ -96,6 +107,8 @@
     <background>background\Grass_01</background>
     <background>background\Grass_02</background>
     <background>background\grass_background</background>
+    <background>background\lava_background</background>
+    <background>background\hell_floor</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -119,6 +132,7 @@
   <objects name="objects">
     <object>objects\object2</object>
     <object>objects\obj_wall</object>
+    <object>objects\obj_enemy</object>
     <object>objects\obj_fence_facing_right</object>
     <object>objects\obj_fence_facing_left</object>
     <object>objects\object0</object>
@@ -127,23 +141,31 @@
     <object>objects\obj_lava</object>
     <object>objects\obj_door_to_next_room</object>
     <object>objects\obj_door_back</object>
+    <object>objects\obj_Satan</object>
     <object>objects\obj_help</object>
     <object>objects\obj_bone</object>
+    <object>objects\obj_book</object>
+    <object>objects\obj_door_to_second_room</object>
     <object>objects\obj_treasure_chest</object>
     <object>objects\obj_gravestone</object>
     <object>objects\obj_gravestone2</object>
+    <object>objects\obj_door_to_third_room</object>
     <object>objects\obj_priest</object>
-    <object>objects\obj_satan</object>
     <object>objects\obj_torch</object>
     <object>objects\obj_AI</object>
     <object>objects\obj_death</object>
+    <object>objects\obj_win</object>
     <object>objects\obj_health_potion</object>
     <object>objects\obj_rangeAI</object>
+    <object>objects\obj_mana_potion</object>
+    <object>objects\obj_projectile</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\room2</room>
     <room>rooms\rm_level1</room>
+    <room>rooms\rm_level2</room>
+    <room>rooms\Hell_level</room>
     <room>rooms\rm_death</room>
+    <room>rooms\rm_win</room>
     <room>rooms\room0</room>
     <room>rooms\room1</room>
   </rooms>

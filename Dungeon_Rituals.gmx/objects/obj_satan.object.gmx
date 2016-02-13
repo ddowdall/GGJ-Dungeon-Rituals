@@ -5,9 +5,313 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_enemy</parentName>
   <maskName>&lt;undefined&gt;</maskName>
-  <events/>
+  <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>maxvit = 100;
+vit = 100;
+
+z = 0
+zspeed = 0
+
+hit = 0
+
+m = 1
+dead = 0
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>
+    instance_create(x, y, obj_AI);
+    instance_create(x, y, obj_AI);
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>instance_destroy();
+
+room = rm_win
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if vit &gt; 0
+{
+    if obj_player.x &lt; x
+    {
+        m = -1
+    }
+    else
+    {
+        m = 1
+    }
+
+    attacking = 0;
+    if point_in_circle(obj_player.x, obj_player.y, x, y, 750)
+    {
+        direction = point_direction(x, y, obj_player.x, obj_player.y);
+        speed = 7;
+        if (point_distance(x, y, obj_player.x, obj_player.y) &lt; 500)
+        {
+            if alarm[1] = -1
+            {
+                alarm[1] = 120
+            }
+        }
+        
+        if (point_distance(x, y, obj_player.x, obj_player.y) &lt; 100)
+         {
+             if (x &gt; obj_player.x &amp;&amp; obj_player.m = 1) || (x &lt; obj_player.x &amp;&amp; obj_player.m = -1)
+             {
+                 facingAI = 1
+             }
+             else
+             {
+                facingAI = 0
+             }
+                 if facingAI
+                     {
+                         if obj_player.attacking
+                         {
+                            if (hit = 0)
+                            {
+                                 motion_add(point_direction(x, y, obj_player.x, obj_player.y)+180,20)
+                                 friction = .5
+                                 zspeed = 10
+                                 if(obj_player.z &gt; 0)
+                                 {
+                                    vit-= 4
+                                 }
+                                 else
+                                 {
+                                    vit -= 2
+                                 }
+                                 hit = 10
+                                 effect_create_above(ef_spark,x,y,1,c_red)
+                                 audio_play_sound(snd_SatanHit,1,0)
+                             }
+                         }
+                     }
+         }   
+         
+        if collision_circle(x, y, 150, obj_player, true, false)
+        {
+             attacking = 1;
+            if (irandom(25) &gt; 24)
+            {
+            
+                if(obj_player.vit &gt; 0)
+                {
+                   
+                    obj_player.vit -= 2;
+                    audio_play_sound(snd_Hit_Hurt2, 0, 0);
+                }
+            }
+            
+            if(collision_circle(x, y, 50, obj_player, true, false))
+            {
+                speed = 0
+            }   
+            
+            if(collision_circle(x, y, 30, obj_player, true, false))
+            {
+                direction = point_direction(x, y, obj_player.x, obj_player.y) + 180;
+                speed = 5;
+            }
+        }
+    }
+    
+    else
+    {
+        speed = 0;
+    }   
+   
+    if hit &gt; 0 
+    {
+        hit--;
+        scr_gravity();
+        z = 0;
+    }
+}
+ else
+    {   
+        alarm[0] = 1
+    }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_player">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>move_outside_all(point_direction(other.x,other.y,x,y),2)
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_wall">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>direction = point_direction(other.x, other.y, x, y);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if !attacking &amp;&amp; !dead &amp;&amp; speed &gt; 0
+{
+    image_speed = .2
+    sprite_index = spr_satan_running
+    draw_sprite_ext(sprite_index,-1,x,y,m,1,45,c_black,.4)
+    draw_sprite_ext(sprite_index,-1,x,y-z,m,1,image_angle,c_white,1)
+}
+
+else if attacking
+{
+    image_speed = .4
+    sprite_index = spr_satan
+    draw_sprite_ext(sprite_index,-1,x,y,m,1,45,c_black,.4)
+    draw_sprite_ext(sprite_index,-1,x,y-z,m,1,image_angle,c_white,1)
+}
+else
+{
+     sprite_index = spr_satan_standing
+     draw_sprite_ext(sprite_index,0,x,y,m,1,45,c_black,.4)
+     draw_sprite_ext(sprite_index,0,x,y-z,m,1,image_angle,c_white,1)
+     
+}
+if (hit % 2 == 0 &amp;&amp; hit &gt; 0)
+{
+    draw_sprite_ext(sprite_index,0,x,y-z,1,1,image_angle,c_red,1)
+}
+if !dead
+status_bar(x,y-130,40,2,vit,maxvit,c_blue,c_lime)
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+  </events>
   <PhysicsObject>0</PhysicsObject>
   <PhysicsObjectSensor>0</PhysicsObjectSensor>
   <PhysicsObjectShape>0</PhysicsObjectShape>

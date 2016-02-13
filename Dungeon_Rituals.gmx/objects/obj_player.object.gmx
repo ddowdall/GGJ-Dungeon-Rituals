@@ -33,6 +33,9 @@ scr_jcontols_init()
 vit = 50
 maxvit = 50
 
+mana = 50
+maxmana = 50
+
 attacking = 0
 
 m = 1
@@ -42,6 +45,8 @@ draw_set_font(fnt_default)
 canstep = 1
 
 talking = -1
+
+global.hasbook = 0;
 
 </string>
           </argument>
@@ -101,6 +106,25 @@ if talking = -1
          audio_play_sound(snd_slash,0,0)
         attacking = 5
     }
+    if global.jpressed[0,6] || keyboard_check_pressed(ord("Z")) || keyboard_check_pressed(ord("G")) || mouse_check_button_pressed(2)
+    if mana &gt;= 10
+        {
+        audio_play_sound(snd_slash,0,0)
+        attacking = 5
+        nb = instance_create(x + 32 * m,y - 64,obj_projectile)
+        nb.sprite_index = spr_iceball
+        
+        if joystick_exists(1)
+        nb.direction = point_direction(0,0,joystick_upos(1),joystick_rpos(1))
+        else
+        nb.direction = point_direction(x + 32 * m,y - 64,mouse_x,mouse_y)
+        
+        nb.speed = 40
+        nb.image_angle = nb.direction
+        audio_play_sound(snd_shoot,0,0)
+        
+        mana -= 10
+        }
     
     scr_controls()
     }
@@ -136,6 +160,29 @@ if vit &lt;= 0
           <argument>
             <kind>1</kind>
             <string>move_outside_all(point_direction(other.x,other.y,x,y),2)
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_book">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>global.hasbook = 1;
 </string>
           </argument>
         </arguments>

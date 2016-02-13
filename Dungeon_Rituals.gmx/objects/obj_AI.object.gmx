@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_enemy</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -66,7 +66,7 @@ damage = (size * size) * 5
             <string>instance_destroy();
 if irandom(10) &gt; 9
     {
-    instance_create(x,y,obj_health_potion)
+    instance_create(x,y,choose(obj_health_potion,obj_mana_potion))
     }
 </string>
           </argument>
@@ -122,8 +122,8 @@ if point_in_circle(obj_player.x, obj_player.y, x, y, 500)
             if irandom(10) &gt; 9
             if (obj_player.vit &gt; 0)
                 {
-                 obj_player.vit -= damage;
-                 audio_play_sound(snd_Hit_Hurt2,0,0)
+                obj_player.vit -= damage;
+                audio_play_sound(snd_Hit_Hurt2,0,0)
                 }
          }
          if (point_distance(x, y, obj_player.x, obj_player.y) &lt; 15)

@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_enemy</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -149,24 +149,24 @@ if point_in_circle(obj_player.x, obj_player.y, x, y, 500)
          {       
             
             {
-                if !collision_circle(x, y, 15, obj_wall, true, false)
+                if !collision_circle(x, y, 30, obj_wall, true, false)
                 {
                     direction = point_direction(x, y, obj_player.x, obj_player.y) + 180;
                     speed = 8;
                 }
                 else
                 {
-                    speed = 0;
+                    direction += 270;
+                     
                 }
                 if (point_distance(x, y, obj_player.x, obj_player.y) &lt; 60)
                 {
                     speed = 0;
                 }
-               
          }
             
          }
-         if (point_distance(x, y, obj_player.x, obj_player.y) &lt; 70)
+         if (point_distance(x, y, obj_player.x, obj_player.y) &lt; 100)
          {
          ok = 0
          if (x &gt; obj_player.x - 30 &amp;&amp; obj_player.m = 1) || (x &lt; obj_player.x + 30 &amp;&amp; obj_player.m = -1)
@@ -217,29 +217,6 @@ else
 if hit &gt; 0 hit--
 scr_gravity()
 
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="obj_rangeAI">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>move_outside_all(point_direction(other.x,other.y,x,y),2)
 </string>
           </argument>
         </arguments>
